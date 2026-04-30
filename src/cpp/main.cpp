@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "lerobot_app/runner.hpp"
-
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "lerobot_app/runner.hpp"
 
 namespace {
 

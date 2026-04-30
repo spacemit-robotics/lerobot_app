@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include "lerobot_app/runner.hpp"
-#include "mlink.h"
-
 #include <iostream>
 #include <memory>
 #include <string>
+
+#include "lerobot_app/runner.hpp"
+#include "mlink.h"
 
 namespace {
 

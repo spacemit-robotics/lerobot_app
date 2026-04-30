@@ -3,7 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#pragma once
+#ifndef RUNNER_HPP
+#define RUNNER_HPP
 
 #include <string>
 #include <vector>
@@ -40,3 +41,5 @@ private:
 };
 
 }  // namespace lerobot_app
+
+#endif  // RUNNER_HPP
