@@ -11,7 +11,7 @@ REPO_ROOT="$(cd "${APP_DIR}/../../.." && pwd)"
 VENV_DIR="${REPO_ROOT}/output/envs/lerobot_app"
 
 source "${REPO_ROOT}/build/envsetup.sh"
-m_env_build application/native/lerobot
+m_env_build application/native/lerobot_app
 
 echo "[setup_env] Environment ready"
 echo "[setup_env] Activate with: source ${VENV_DIR}/bin/activate"
