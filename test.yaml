@@ -12,6 +12,9 @@ tests:
     workdir: sdk
     python_env:
       python: "3.12.13"
+      index_url: "https://mirrors.aliyun.com/pypi/simple"
+      extra_index_url:
+        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -31,6 +34,9 @@ tests:
     workdir: sdk
     python_env:
       python: "3.12.13"
+      index_url: "https://mirrors.aliyun.com/pypi/simple"
+      extra_index_url:
+        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -54,6 +60,9 @@ tests:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
       python: "3.12.13"
+      index_url: "https://mirrors.aliyun.com/pypi/simple"
+      extra_index_url:
+        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -78,6 +87,9 @@ tests:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
       python: "3.12.13"
+      index_url: "https://mirrors.aliyun.com/pypi/simple"
+      extra_index_url:
+        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -98,6 +110,9 @@ tests:
     workdir: sdk
     python_env:
       python: "3.12.13"
+      index_url: "https://mirrors.aliyun.com/pypi/simple"
+      extra_index_url:
+        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"

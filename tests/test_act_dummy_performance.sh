@@ -11,7 +11,7 @@ extract_dir="$cache_dir/extracted"
 log_dir="$artifact_dir/logs"
 log_file="$log_dir/act_dummy_performance.log"
 model_path="$extract_dir/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model"
-max_avg_ms="${LEROBOT_ACT_MAX_AVG_MS:-30000}"
+max_avg_ms="${LEROBOT_ACT_MAX_AVG_MS:-10000}"
 
 mkdir -p "$artifact_dir" "$cache_dir" "$extract_dir" "$log_dir"
 

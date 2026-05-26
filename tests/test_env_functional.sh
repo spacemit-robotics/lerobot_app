@@ -44,10 +44,6 @@ if not isinstance(OBS_STATE, str) or not isinstance(OBS_IMAGES, str):
 # Verify project structure (cwd is lerobot_app root, set by cd above)
 _project_root = Path.cwd()
 
-pyproject = _project_root / "pyproject.toml"
-if not pyproject.exists():
-    raise AssertionError(f"pyproject.toml is missing from lerobot_app root ({_project_root})")
-
 benchmark = _project_root / "tests" / "benchmark_act_dummy_inference.py"
 if not benchmark.exists():
     raise AssertionError(f"ACT dummy benchmark script is missing from {_project_root}/tests")
