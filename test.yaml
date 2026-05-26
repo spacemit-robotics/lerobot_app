@@ -1,0 +1,101 @@
+module: application/native/lerobot_app
+
+tests:
+  - name: lerobot-app-env-functional
+    description: Verifies the lerobot_app Python environment can import core ACT modules and execute torch tensor math.
+    category: functional
+    scopes: [pr]
+    timeout_s: 300
+    workdir: sdk
+    python_env:
+      install:
+        - "torch==2.7.1"
+        - "torchvision==0.22.0"
+        - "wandb==0.24.0"
+        - "pyarrow==23.0.0"
+        - "-e ../../../components/thirdparty/lerobot"
+    artifacts:
+      - output/test/pr/application__native__lerobot_app/modules/application__native__lerobot_app/env_functional.log
+    command: |
+      bash application/native/lerobot_app/tests/test_env_functional.sh
+
+  - name: lerobot-app-act-dummy-invalid-model
+    description: Verifies ACT dummy inference rejects a missing model path with a clear error instead of hanging or silently succeeding.
+    category: functional
+    scopes: [pr]
+    timeout_s: 300
+    workdir: sdk
+    python_env:
+      install:
+        - "torch==2.7.1"
+        - "torchvision==0.22.0"
+        - "wandb==0.24.0"
+        - "pyarrow==23.0.0"
+        - "-e ../../../components/thirdparty/lerobot"
+    artifacts:
+      - output/test/pr/application__native__lerobot_app/modules/application__native__lerobot_app/invalid_model.log
+    command: |
+      bash application/native/lerobot_app/tests/test_act_dummy_invalid_model.sh
+
+  - name: lerobot-app-act-dummy-inference
+    description: Downloads the SO101 ACT model and validates no-hardware dummy inference output, latency summary, and profiler report.
+    category: functional
+    scopes: [scheduled, release]
+    timeout_s: 3600
+    workdir: sdk
+    requires:
+      network: true
+      external_resources:
+        - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
+    python_env:
+      install:
+        - "torch==2.7.1"
+        - "torchvision==0.22.0"
+        - "wandb==0.24.0"
+        - "pyarrow==23.0.0"
+        - "-e ../../../components/thirdparty/lerobot"
+    artifacts:
+      - output/test/scheduled/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_inference.log
+      - output/test/release/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_inference.log
+    command: |
+      bash application/native/lerobot_app/tests/test_act_dummy_inference.sh
+
+  - name: lerobot-app-act-dummy-performance
+    description: Measures ACT dummy inference latency and fails when average latency exceeds LEROBOT_ACT_MAX_AVG_MS.
+    category: performance
+    scopes: [scheduled, release]
+    timeout_s: 3600
+    workdir: sdk
+    requires:
+      network: true
+      external_resources:
+        - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
+    python_env:
+      install:
+        - "torch==2.7.1"
+        - "torchvision==0.22.0"
+        - "wandb==0.24.0"
+        - "pyarrow==23.0.0"
+        - "-e ../../../components/thirdparty/lerobot"
+    artifacts:
+      - output/test/scheduled/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_performance.log
+      - output/test/release/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_performance.log
+    command: |
+      bash application/native/lerobot_app/tests/test_act_dummy_performance.sh
+
+  - name: lerobot-app-so101-hardware-smoke
+    description: Manually verifies SO101 follower arm and camera access for real LeRobot deployment; requires powered hardware and human supervision.
+    category: functional
+    scopes: [manual]
+    timeout_s: 900
+    workdir: sdk
+    requires:
+      hardware:
+        - SO101 follower arm on /dev/ttyACM*
+        - USB camera on /dev/video*
+      supervision: true
+    artifacts:
+      - output/test/manual/application__native__lerobot_app/modules/application__native__lerobot_app/lerobot-app-so101-hardware-smoke.log
+    command: |
+      lerobot-find-port
+      lerobot-find-cameras opencv
