@@ -8,13 +8,10 @@ tests:
     description: Verifies the lerobot_app Python environment can import core ACT modules and execute torch tensor math.
     category: functional
     scopes: [pr]
-    timeout_s: 600
+    timeout_s: 3600
     workdir: sdk
     python_env:
       python: "3.12.13"
-      index_url: "https://mirrors.aliyun.com/pypi/simple"
-      extra_index_url:
-        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -30,13 +27,10 @@ tests:
     description: Verifies ACT dummy inference rejects a missing model path with a clear error instead of hanging or silently succeeding.
     category: functional
     scopes: [pr]
-    timeout_s: 300
+    timeout_s: 3600
     workdir: sdk
     python_env:
       python: "3.12.13"
-      index_url: "https://mirrors.aliyun.com/pypi/simple"
-      extra_index_url:
-        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -60,9 +54,6 @@ tests:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
       python: "3.12.13"
-      index_url: "https://mirrors.aliyun.com/pypi/simple"
-      extra_index_url:
-        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -87,9 +78,6 @@ tests:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
       python: "3.12.13"
-      index_url: "https://mirrors.aliyun.com/pypi/simple"
-      extra_index_url:
-        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -106,13 +94,10 @@ tests:
     description: Manually verifies SO101 follower arm and camera access for real LeRobot deployment; requires powered hardware and human supervision.
     category: functional
     scopes: [manual]
-    timeout_s: 900
+    timeout_s: 3600
     workdir: sdk
     python_env:
       python: "3.12.13"
-      index_url: "https://mirrors.aliyun.com/pypi/simple"
-      extra_index_url:
-        - "https://git.spacemit.com/api/v4/projects/33/packages/pypi/simple"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
