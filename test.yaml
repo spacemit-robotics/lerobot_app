@@ -16,7 +16,7 @@ tests:
         - "torchvision==0.22.0"
         - "wandb==0.24.0"
         - "pyarrow==23.0.0"
-        - "-e ../../../components/thirdparty/lerobot"
+        - "lerobot==0.5.0"
     artifacts:
       - output/test/pr/application__native__lerobot_app/modules/application__native__lerobot_app/env_functional.log
     command: |
@@ -34,7 +34,7 @@ tests:
         - "torchvision==0.22.0"
         - "wandb==0.24.0"
         - "pyarrow==23.0.0"
-        - "-e ../../../components/thirdparty/lerobot"
+        - "lerobot==0.5.0"
     artifacts:
       - output/test/pr/application__native__lerobot_app/modules/application__native__lerobot_app/invalid_model.log
     command: |
@@ -56,7 +56,7 @@ tests:
         - "torchvision==0.22.0"
         - "wandb==0.24.0"
         - "pyarrow==23.0.0"
-        - "-e ../../../components/thirdparty/lerobot"
+        - "lerobot==0.5.0"
     artifacts:
       - output/test/scheduled/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_inference.log
       - output/test/release/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_inference.log
@@ -79,7 +79,7 @@ tests:
         - "torchvision==0.22.0"
         - "wandb==0.24.0"
         - "pyarrow==23.0.0"
-        - "-e ../../../components/thirdparty/lerobot"
+        - "lerobot==0.5.0"
     artifacts:
       - output/test/scheduled/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_performance.log
       - output/test/release/application__native__lerobot_app/modules/application__native__lerobot_app/logs/act_dummy_performance.log
@@ -98,7 +98,7 @@ tests:
         - "torchvision==0.22.0"
         - "wandb==0.24.0"
         - "pyarrow==23.0.0"
-        - "-e ../../../components/thirdparty/lerobot"
+        - "lerobot==0.5.0"
     requires:
       hardware:
         - SO101 follower arm on /dev/ttyACM*
