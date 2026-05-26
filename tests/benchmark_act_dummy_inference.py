@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright (C) 2026 SpacemiT (Hangzhou) Technology Co. Ltd.
+# SPDX-License-Identifier: Apache-2.0
 """ACT dummy inference benchmark.
 
 用法示例：
@@ -49,7 +51,8 @@
 - --warmup: 预热轮数，默认 10。
 - --iters: 正式计时轮数，默认 50。
 - --use-half: 启用 fp16 权重、输入、输出。
-- --input-bhwc: 将图像输入转换为 BHWC 形状用于展示/联调；启用后真正喂给 ACT 的图像输入也是 BHWC。
+- --input-bhwc: 将图像输入转换为 BHWC 形状用于展示/联调；启用后真正
+    喂给 ACT 的图像输入也是 BHWC。
 - --print-json-config: 打印加载到的模型配置。
 - --keep-mkldnn: 保留 mkldnn；不传时脚本会显式关闭 mkldnn，便于做 CPU 路径对比。
 
@@ -93,10 +96,17 @@ def parse_args() -> argparse.Namespace:
         "--device",
         type=str,
         default=None,
-        help="Device to run on, e.g. cuda, cuda:0, cpu. Defaults to model config device.",
+        help=(
+            "Device to run on, e.g. cuda, cuda:0, cpu. "
+            "Defaults to model config device."
+        ),
     )
-    parser.add_argument("--warmup", type=int, default=10, help="Number of warmup iterations.")
-    parser.add_argument("--iters", type=int, default=50, help="Number of timed iterations.")
+    parser.add_argument(
+        "--warmup", type=int, default=10, help="Number of warmup iterations."
+    )
+    parser.add_argument(
+        "--iters", type=int, default=50, help="Number of timed iterations."
+    )
     parser.add_argument(
         "--use-half",
         action="store_true",
@@ -145,7 +155,12 @@ def maybe_to_bhwc_batch(batch: dict[str, Any], input_bhwc: bool) -> dict[str, An
         if isinstance(value, torch.Tensor):
             converted[key] = maybe_to_bhwc_tensor(value, input_bhwc)
         elif isinstance(value, list):
-            converted[key] = [maybe_to_bhwc_tensor(item, input_bhwc) if isinstance(item, torch.Tensor) else item for item in value]
+            converted[key] = [
+                maybe_to_bhwc_tensor(item, input_bhwc)
+                if isinstance(item, torch.Tensor)
+                else item
+                for item in value
+            ]
         else:
             converted[key] = value
     return converted
@@ -173,7 +188,9 @@ def make_dummy_batch(policy: ACTPolicy, device: torch.device, dtype: torch.dtype
             batch[image_key] = torch.randn((1, *shape), device=device, dtype=dtype)
 
     if not batch:
-        raise ValueError("Could not build dummy batch: no robot state or image features found in config.")
+        raise ValueError(
+            "Could not build dummy batch: no robot state or image features found in config."
+        )
 
     return batch
 
@@ -189,7 +206,9 @@ def describe_value(name: str, value: Any, indent: int = 0) -> None:
     prefix = " " * indent
     if isinstance(value, torch.Tensor):
         print(
-            f"{prefix}{name}: Tensor(shape={tuple(value.shape)}, dtype={value.dtype}, device={value.device}, layout={tensor_layout_str(value)}, type={type(value).__name__})"
+            f"{prefix}{name}: Tensor(shape={tuple(value.shape)}, dtype={value.dtype}, "
+            f"device={value.device}, layout={tensor_layout_str(value)}, "
+            f"type={type(value).__name__})"
         )
     elif isinstance(value, list):
         print(f"{prefix}{name}: list(len={len(value)}, type={type(value).__name__})")

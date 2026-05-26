@@ -1,3 +1,6 @@
+## Copyright (C) 2026 SpacemiT (Hangzhou) Technology Co. Ltd.
+## SPDX-License-Identifier: Apache-2.0
+
 module: application/native/lerobot_app
 
 tests:
@@ -5,7 +8,7 @@ tests:
     description: Verifies the lerobot_app Python environment can import core ACT modules and execute torch tensor math.
     category: functional
     scopes: [pr]
-    timeout_s: 300
+    timeout_s: 600
     workdir: sdk
     python_env:
       install:
@@ -89,6 +92,13 @@ tests:
     scopes: [manual]
     timeout_s: 900
     workdir: sdk
+    python_env:
+      install:
+        - "torch==2.7.1"
+        - "torchvision==0.22.0"
+        - "wandb==0.24.0"
+        - "pyarrow==23.0.0"
+        - "-e ../../../components/thirdparty/lerobot"
     requires:
       hardware:
         - SO101 follower arm on /dev/ttyACM*
