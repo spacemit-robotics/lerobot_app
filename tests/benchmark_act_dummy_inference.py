@@ -6,37 +6,37 @@
 用法示例：
 
 1. fp32 + mkldnn off（默认）
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model \
        --device cpu
 
 2. fp32 + mkldnn on
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model \
        --device cpu \
        --keep-mkldnn
 
 3. fp16 + mkldnn off
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model_fp16 \
        --device cpu \
        --use-half
 
 4. fp16 + mkldnn on
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model_fp16 \
        --device cpu \
        --use-half \
        --keep-mkldnn
 
 5. 验证 BHWC 输入展示
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model \
        --device cpu \
        --input-bhwc
 
 6. 验证 fp16 + BHWC + mkldnn on
-   python examples/training/benchmark_act_dummy_inference.py \
+   python tests/benchmark_act_dummy_inference.py \
        --model-path outputs/train/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model_fp16 \
        --device cpu \
        --use-half \

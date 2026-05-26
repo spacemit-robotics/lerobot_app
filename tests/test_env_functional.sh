@@ -41,13 +41,16 @@ if not callable(getattr(ACTPolicy, "from_pretrained", None)):
 if not isinstance(OBS_STATE, str) or not isinstance(OBS_IMAGES, str):
     raise AssertionError("LeRobot observation constants are not strings")
 
-pyproject = Path("pyproject.toml")
-if not pyproject.exists():
-    raise AssertionError("pyproject.toml is missing from lerobot_app root")
+# Verify project structure (cwd is lerobot_app root, set by cd above)
+_project_root = Path.cwd()
 
-benchmark = Path("tests/benchmark_act_dummy_inference.py")
+pyproject = _project_root / "pyproject.toml"
+if not pyproject.exists():
+    raise AssertionError(f"pyproject.toml is missing from lerobot_app root ({_project_root})")
+
+benchmark = _project_root / "tests" / "benchmark_act_dummy_inference.py"
 if not benchmark.exists():
-    raise AssertionError("ACT dummy benchmark script is missing from lerobot_app tests")
+    raise AssertionError(f"ACT dummy benchmark script is missing from {_project_root}/tests")
 
 print("python_version=", sys.version.split()[0])
 print("torch_version=", torch.__version__)
