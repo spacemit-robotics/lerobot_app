@@ -11,6 +11,7 @@ tests:
     timeout_s: 600
     workdir: sdk
     python_env:
+      python: "3.12.13"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -29,6 +30,7 @@ tests:
     timeout_s: 300
     workdir: sdk
     python_env:
+      python: "3.12.13"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -51,6 +53,7 @@ tests:
       external_resources:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
+      python: "3.12.13"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -74,6 +77,7 @@ tests:
       external_resources:
         - https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz
     python_env:
+      python: "3.12.13"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
@@ -93,6 +97,7 @@ tests:
     timeout_s: 900
     workdir: sdk
     python_env:
+      python: "3.12.13"
       install:
         - "torch==2.7.1"
         - "torchvision==0.22.0"
