@@ -27,7 +27,11 @@ if [[ ! -s "$archive_path" ]]; then
   fi
 fi
 
-tar -xzf "$archive_path" -C "$extract_dir"
+if [[ ! -d "$model_path" ]]; then
+  tar -xzf "$archive_path" -C "$extract_dir"
+else
+  echo "[lerobot-app-act-perf] Reusing extracted model: $model_path"
+fi
 
 if [[ ! -d "$model_path" ]]; then
   echo "Expected pretrained model directory not found: $model_path" >&2

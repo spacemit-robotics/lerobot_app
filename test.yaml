@@ -8,7 +8,7 @@ tests:
     description: Verifies the lerobot_app Python environment can import core ACT modules and execute torch tensor math.
     category: functional
     scopes: [pr]
-    timeout_s: 3600
+    timeout_s: 600
     workdir: sdk
     python_env:
       python: "3.12.13"
@@ -27,7 +27,7 @@ tests:
     description: Verifies ACT dummy inference rejects a missing model path with a clear error instead of hanging or silently succeeding.
     category: functional
     scopes: [pr]
-    timeout_s: 3600
+    timeout_s: 600
     workdir: sdk
     python_env:
       python: "3.12.13"
