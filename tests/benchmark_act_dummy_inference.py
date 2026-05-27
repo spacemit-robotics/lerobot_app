@@ -241,11 +241,10 @@ def benchmark_select_action(policy: ACTPolicy, batch: dict[str, Any], warmup: in
         _ = policy.select_action(batch)
     sync_if_needed(next(policy.parameters()).device)
 
-    policy.reset()
-    sync_if_needed(next(policy.parameters()).device)
-
     latencies_ms = []
     for _ in range(iters):
+        policy.reset()
+        sync_if_needed(next(policy.parameters()).device)
         start = time.perf_counter()
         _ = policy.select_action(batch)
         sync_if_needed(next(policy.parameters()).device)

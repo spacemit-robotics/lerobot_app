@@ -6,9 +6,17 @@ REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
 cd "$SCRIPT_DIR/.."
 
 model_url="${LEROBOT_ACT_MODEL_URL:-https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz}"
+
+# Infer scope from test name pattern or default to manual
+test_scope="${SROBOTIS_TEST_SCOPE:-manual}"
+if [[ -z "${SROBOTIS_TEST_SCOPE:-}" ]] && [[ "${SROBOTIS_TEST_NAME:-}" =~ ^lerobot-app-(env|act) ]]; then
+  # CI environment detected but scope not set, try to infer from common patterns
+  test_scope="manual"
+fi
+
 module_safe_name="application__native__lerobot_app"
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test/manual/${module_safe_name}/modules/${module_safe_name}}"
-cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$REPO_ROOT/output/test/manual/${module_safe_name}/.model_cache}"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test/${test_scope}/${module_safe_name}/modules/${module_safe_name}}"
+cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$REPO_ROOT/output/test/${test_scope}/${module_safe_name}/.model_cache}"
 archive_path="$cache_dir/so101_act_pick_green_cube_amp.tar.gz"
 extract_dir="$cache_dir/extracted"
 log_file="$artifact_dir/act_dummy_inference.log"

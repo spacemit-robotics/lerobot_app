@@ -5,8 +5,15 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
 cd "$SCRIPT_DIR/.."
 
+# Infer scope from test name pattern or default to manual
+test_scope="${SROBOTIS_TEST_SCOPE:-manual}"
+if [[ -z "${SROBOTIS_TEST_SCOPE:-}" ]] && [[ "${SROBOTIS_TEST_NAME:-}" =~ ^lerobot-app-(env|act) ]]; then
+  # CI environment detected but scope not set, try to infer from common patterns
+  test_scope="manual"
+fi
+
 module_safe_name="application__native__lerobot_app"
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test/manual/${module_safe_name}/modules/${module_safe_name}}"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test/${test_scope}/${module_safe_name}/modules/${module_safe_name}}"
 mkdir -p "$artifact_dir"
 log_file="$artifact_dir/env_functional.log"
 exec > >(tee "$log_file") 2>&1

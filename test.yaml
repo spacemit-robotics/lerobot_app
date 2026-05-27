@@ -112,5 +112,7 @@ tests:
     artifacts:
       - output/test/manual/application__native__lerobot_app/modules/application__native__lerobot_app/lerobot-app-so101-hardware-smoke.log
     command: |
-      lerobot-find-port
-      lerobot-find-cameras opencv
+      artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-output/test/manual/application__native__lerobot_app/modules/application__native__lerobot_app}"
+      mkdir -p "$artifact_dir"
+      log_file="$artifact_dir/lerobot-app-so101-hardware-smoke.log"
+      (lerobot-find-port && lerobot-find-cameras opencv) > "$log_file" 2>&1
