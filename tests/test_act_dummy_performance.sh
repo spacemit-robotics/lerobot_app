@@ -6,8 +6,9 @@ REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
 cd "$SCRIPT_DIR/.."
 
 model_url="${LEROBOT_ACT_MODEL_URL:-https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz}"
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-act-dummy-performance}}"
-cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$REPO_ROOT/output/test-artifacts/lerobot_app/.model_cache}"
+module_safe_name="application__native__lerobot_app"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test/manual/${module_safe_name}/modules/${module_safe_name}}"
+cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$REPO_ROOT/output/test/manual/${module_safe_name}/.model_cache}"
 archive_path="$cache_dir/so101_act_pick_green_cube_amp.tar.gz"
 extract_dir="$cache_dir/extracted"
 log_file="$artifact_dir/act_dummy_performance.log"
@@ -29,7 +30,14 @@ if [[ ! -s "$archive_path" ]]; then
 fi
 
 if [[ ! -d "$model_path" ]]; then
-  tar -xzf "$archive_path" -C "$extract_dir"
+  lock_file="$cache_dir/.extract.lock"
+  (
+    flock -x 200
+    if [[ ! -d "$model_path" ]]; then
+      echo "[lerobot-app-act-perf] Extracting model archive..."
+      tar -xzf "$archive_path" -C "$extract_dir"
+    fi
+  ) 200>"$lock_file"
 else
   echo "[lerobot-app-act-perf] Reusing extracted model: $model_path"
 fi
