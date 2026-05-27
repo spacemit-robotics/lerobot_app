@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
+cd "$SCRIPT_DIR/.."
 
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$PWD/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-invalid-model}}"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-invalid-model}}"
 mkdir -p "$artifact_dir"
 missing_model="/tmp/lerobot-app-ci-missing-act-model-$$"
 log_file="$artifact_dir/invalid_model.log"

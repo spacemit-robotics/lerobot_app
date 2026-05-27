@@ -115,7 +115,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--input-bhwc",
         action="store_true",
-        help="Convert image inputs to BHWC layout for debugging/layout validation.",
+        help=(
+            "[DEBUG ONLY] Convert image inputs to BHWC layout for layout "
+            "validation. WARNING: standard ACT models use Conv2d which "
+            "requires BCHW; using this flag will cause RuntimeError unless "
+            "the model has been modified for channel-last input."
+        ),
     )
     parser.add_argument(
         "--print-json-config",
@@ -289,6 +294,14 @@ def main() -> None:
 
     dtype = infer_tensor_dtype(target_device, effective_use_half)
     batch = make_dummy_batch(policy, target_device, dtype)
+
+    if args.input_bhwc:
+        import warnings
+        warnings.warn(
+            "--input-bhwc is a debug flag. Standard ACT models require BCHW "
+            "input; using BHWC will likely cause RuntimeError from Conv2d layers.",
+            stacklevel=1,
+        )
     batch = maybe_to_bhwc_batch(batch, args.input_bhwc)
 
     if args.print_json_config:

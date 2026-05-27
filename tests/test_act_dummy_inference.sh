@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
+cd "$SCRIPT_DIR/.."
 
 model_url="${LEROBOT_ACT_MODEL_URL:-https://archive.spacemit.com/spacemit-ai/model_zoo/vla/act/so101_act_pick_green_cube_amp.tar.gz}"
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$PWD/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-act-dummy-inference}}"
-cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$artifact_dir/act_model}"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-act-dummy-inference}}"
+cache_dir="${LEROBOT_ACT_MODEL_CACHE:-$REPO_ROOT/output/test-artifacts/lerobot_app/.model_cache}"
 archive_path="$cache_dir/so101_act_pick_green_cube_amp.tar.gz"
 extract_dir="$cache_dir/extracted"
-log_dir="$artifact_dir/logs"
-log_file="$log_dir/act_dummy_inference.log"
+log_file="$artifact_dir/act_dummy_inference.log"
 model_path="$extract_dir/so101_act_pick_green_cube_amp/checkpoints/100000/pretrained_model"
 
-mkdir -p "$artifact_dir" "$cache_dir" "$extract_dir" "$log_dir"
+mkdir -p "$artifact_dir" "$cache_dir" "$extract_dir"
 
 echo "[lerobot-app-act-dummy] Downloading ACT model from: $model_url"
 if [[ ! -s "$archive_path" ]]; then

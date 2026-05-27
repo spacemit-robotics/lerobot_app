@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd "$(dirname "$0")/.."
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="${SROBOTIS_SDK_ROOT:-$(cd "$SCRIPT_DIR/../../../.." && pwd)}"
+cd "$SCRIPT_DIR/.."
 
-artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$PWD/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-env}}"
+artifact_dir="${SROBOTIS_TEST_ARTIFACT_DIR:-${SROBOTIS_OUTPUT_ROOT:-$REPO_ROOT/output}/test-artifacts/lerobot_app/${SROBOTIS_TEST_NAME:-env}}"
 mkdir -p "$artifact_dir"
 log_file="$artifact_dir/env_functional.log"
 exec > >(tee "$log_file") 2>&1
